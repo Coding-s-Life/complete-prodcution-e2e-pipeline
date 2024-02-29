@@ -20,5 +20,18 @@ pipeline{
             }
 
         }
+
+        stage("Build Application"){
+            steps {
+                bat "mvn clean package"
+            }
+        }
+
+        stage("Test Application"){
+            steps {
+                bat "mvn test"
+            }
+        }
+
 	}
 }
