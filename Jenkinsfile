@@ -6,6 +6,9 @@ pipeline{
         jdk 'Java17'
         maven 'Maven3'
     }
+    environment {
+        PATH = "C:\\WINDOWS\\SYSTEM32"
+    }
     stages{
         stage("Cleanup Workspace"){
             steps {
