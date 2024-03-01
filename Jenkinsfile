@@ -38,8 +38,10 @@ pipeline{
 
         stage("SonarQube Static Code Analysis"){
             steps {
-                    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-                    bat 'mvn sonar:sonar'
+                script {
+                        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                        bat 'mvn sonar:sonar'
+                    }
                 }
             }
         }
