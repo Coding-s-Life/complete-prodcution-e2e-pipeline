@@ -38,7 +38,7 @@ pipeline{
 
         stage("SonarQube Static Code Analysis"){
             steps {
-                    withSonarQubeEnv(credentialsID:'jenkins-sonarqube-token'){
+                    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
                     bat 'mvn sonar:sonar'
                 }
             }
