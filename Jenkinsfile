@@ -68,7 +68,7 @@ pipeline{
 
                     // Build Docker image
                     //def customImage = docker.build('docker buildx build .')
-                    def customImage = docker.build('complete-prodcution-e2e-pipeline', '-f ${dockerfile} .')
+                    def customImage = docker.build('docker_username/complete-prodcution-e2e-pipeline', '-f ${dockerfile} .')
 
                     // Push Docker image to a registry (optional)
                     customImage.push('latest')
