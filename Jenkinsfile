@@ -59,18 +59,22 @@ pipeline{
                //  }
             // }
         //}
-        stage("Build and PUSH DOCKER IMAGE"){
+    stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('', DOCKER_PASS){
-                           docker_image = docker.build "${IMAGE_NAME}"
-                    }
-                    docker.withRegistry('', DOCKER_PASS){
-                           docker_image.push("${IMAGE_TAG}")
-                           docker_image.push('latest')
-                    }
+                    // Define Dockerfile location
+                    def dockerfile = './Dockerfile'
+
+                    // Build Docker image
+                    def customImage = docker.build('docker_username/complete-prodcution-e2e-pipeline', '-f ${dockerfile} .')
+
+                    // Push Docker image to a registry (optional)
+                    customImage.push('latest')
                 }
             }
         }
+
+
+
     }
 }
