@@ -12,7 +12,7 @@ pipeline{
         RELEASE = "1.0.0"
         PATH = "C:\\WINDOWS\\SYSTEM32"
         DOCKER_USER = "docker_username"
-        DOCKER_PASS = 'docker_token'
+        DOCKER_PASS = "docker_token"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
@@ -60,13 +60,13 @@ pipeline{
                //  }
             // }
         //}
-        stage('Docker login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_token', DOCKER_USER: 'DOCKER_USERNAME', DOCKER_PASS: 'DOCKER_PASSWORD')]) {
-                    bat "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                }
-            }
-        }
+       // stage('Docker login') {
+         //   steps {
+           //     withCredentials([usernamePassword(credentialsId: 'docker_token', DOCKER_USER: 'DOCKER_USERNAME', DOCKER_PASS: 'DOCKER_PASSWORD')]) {
+             //       bat "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+               // }
+            //}
+        //}
         stage("Build & Push Docker Image") {
             steps {
                 script {
