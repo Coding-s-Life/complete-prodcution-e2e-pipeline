@@ -6,6 +6,8 @@ pipeline{
         jdk 'Java17'
         maven 'Maven3'
         dockerTool 'DOCKER25'
+        docker_image=''
+        registry='eagertolearn001/demoapp'
     }
     environment {
         APP_NAME = "complete-prodcution-e2e-pipeline"
@@ -60,15 +62,23 @@ pipeline{
                //  }
             // }
         //}
-        stage("Build and PUSH DOCKER IMAGE"){
+        stage('Docker login') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker_token', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                }
+            }
+        }
+        stage("Build & Push Docker Image") {
             steps {
                 script {
-                    docker.withRegistry('', DOCKER_PASS){
-                           docker_image = docker.build "${IMAGE_NAME}"
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image = docker.build "${IMAGE_NAME}"
                     }
-                    docker.withRegistry('', DOCKER_PASS){
-                           docker_image.push("${IMAGE_TAG}")
-                           docker_image.push('latest')
+
+                    docker.withRegistry('',DOCKER_PASS) {
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
                     }
                 }
             }
