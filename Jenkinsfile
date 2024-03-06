@@ -62,8 +62,8 @@ pipeline{
         //}
         stage('Docker login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_token', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                withCredentials([usernamePassword(credentialsId: 'docker_token', DOCKER_USER: 'DOCKER_USERNAME', DOCKER_PASS: 'DOCKER_PASSWORD')]) {
+                    bat "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                 }
             }
         }
