@@ -6,8 +6,8 @@ pipeline{
         jdk 'Java17'
         maven 'Maven3'
         dockerTool 'DOCKER25'
-        docker_image=''
-        registry='eagertolearn001/demoapp'
+        docker_image ''
+        registry 'eagertolearn001/demoapp'
     }
     environment {
         APP_NAME = "complete-prodcution-e2e-pipeline"
