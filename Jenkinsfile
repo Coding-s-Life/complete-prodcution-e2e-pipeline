@@ -11,6 +11,7 @@ pipeline{
         APP_NAME = "complete-prodcution-e2e-pipeline"
         RELEASE = "1.0.0"
         PATH = "C:\\WINDOWS\\SYSTEM32;C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
+        DOCKER_REGISTRY = 'https://hub.docker.com/repository/docker/eagertolearn001/completeprodcutione2epipeline/general'
         DOCKER_USER = "docker_username"
         DOCKER_PASS = 'docker_token'
         IMAGE_NAME = "${DOCKER_USER}"  + "/" + "${APP_NAME}"
@@ -70,7 +71,12 @@ pipeline{
         stage("Build & Push Docker Image") {
             steps {
                 script {
-                        withCredentials([usernamePassword(credentialsId: 'docker_token', DOCKER_USER: 'DOCKER_USERNAME', DOCKER_PASS: 'DOCKER_PASSWORD')]) {
+//                         withCredentials([usernamePassword(credentialsId: 'docker_token', DOCKER_USER: 'DOCKER_USERNAME', DOCKER_PASS: 'DOCKER_PASSWORD')]) {
+//                             bat "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                        withCredentials([usernamePassword(credentialsId: 'docker_token', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                            bat 'docker login -u $DOCKER_USER -p $DOCKER_PASS $DOCKER_REGISTRY'
+                            bat 'docker build -t your-image-name .'
+                            bat 'docker push $DOCKER_REGISTRY/your-image-name'
                             bat "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                     }
                     docker.withRegistry('',DOCKER_PASS) {
