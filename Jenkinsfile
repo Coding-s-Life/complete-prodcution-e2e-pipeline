@@ -52,7 +52,7 @@ pipeline {
                     script {
                         // Docker login
 //                        bat "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} ${DOCKER_REGISTRY} --password-stdin"
-                        bat "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin ${DOCKER_REGISTRY}"
+                        //bat "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin ${DOCKER_REGISTRY}"
 
                         
                         // Build Docker image
