@@ -64,6 +64,8 @@ pipeline {
                         
                         // Push Docker image to registry
                         //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                        // docker push eagertolearn001/completeprodcutione2epipeline:1.0.0-137
+                        bat "echo ${DOCKER_REGISTRY}/${IMAGE_NAME}"
                         bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}"
                         
                         // Tag and push latest image
