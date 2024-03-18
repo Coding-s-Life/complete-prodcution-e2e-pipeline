@@ -11,7 +11,7 @@ pipeline {
         RELEASE = "1.0.0"
         PATH = "C:\\WINDOWS\\SYSTEM32;C:\\Program Files\\Docker\\Docker\\resources\\bin;${env.PATH}"
         DOCKER_REGISTRY = 'https://hub.docker.com/repository/docker'
-        DOCKER_USER = "muneer814@yahoo.com"
+        DOCKER_USER = "eagertolearn"
         DOCKER_PASS = 'dockerhub'
         IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         BUILD_NUMBER = "700"
