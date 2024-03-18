@@ -97,7 +97,7 @@ pipeline {
                         // Tag and push latest image
                         //bat "docker tag docker_username/complete-prodcution-e2e-pipeline:1.0.0-137 eagertolearn001/completeprodcutione2epipeline:1.0.0-137"
                         //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
-                        bat docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137
+                        bat "docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137"
 
                     }
                 }
