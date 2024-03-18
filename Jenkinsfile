@@ -14,6 +14,7 @@ pipeline {
         DOCKER_USER = "eagertolearn001"
         DOCKER_PASS = 'docker_token'
         IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
+        BUILD_NUMBER = "700"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
     stages {
@@ -82,8 +83,8 @@ pipeline {
 
                         
                         // Build Docker image
-                        //bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-                        bat "docker build -t ${IMAGE_NAME} ."
+                        bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                        //bat "docker build -t ${IMAGE_NAME} ."
                         
                         // Tag Docker image
                         //bat "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -91,13 +92,14 @@ pipeline {
                         // Push Docker image to registry
                         //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
                         // docker push eagertolearn001/completeprodcutione2epipeline:1.0.0-137
-                        bat "echo ${DOCKER_REGISTRY}/${IMAGE_NAME}"
-                        bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}"
+                        //bat "echo ${DOCKER_REGISTRY}/${IMAGE_NAME}"
+                        //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}"
                         
                         // Tag and push latest image
                         //bat "docker tag docker_username/complete-prodcution-e2e-pipeline:1.0.0-137 eagertolearn001/completeprodcutione2epipeline:1.0.0-137"
                         //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
-                        bat "docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137"
+                        //bat "docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137"
+                        bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
 
                     }
                 }
