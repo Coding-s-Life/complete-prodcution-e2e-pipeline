@@ -27,16 +27,42 @@ pipeline {
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/Coding-s-Life/complete-prodcution-e2e-pipeline'
             }
         }
-        stage("Build Application") {
+        stage("Maven Validate") {
             steps {
-                bat 'mvn clean package'
+                bat 'mvn validate'
             }
         }
-        stage("Test Application") {
+        stage("Maven Compile") {
+            steps {
+                bat 'mvn compile'
+            }
+        }
+        stage("Maven Test") {
             steps {
                 bat 'mvn test'
             }
         }
+        stage("Maven Package") {
+            steps {
+                bat 'mvn package'
+            }
+        }
+        stage("Test Install") {
+            steps {
+                bat 'mvn install'
+            }
+        }
+
+//         stage("Build Application") {
+//             steps {
+//                 bat 'mvn clean package'
+//             }
+//         }
+//         stage("Test Application") {
+//             steps {
+//                 bat 'mvn test'
+//             }
+//         }
         stage("SonarQube Static Code Analysis") {
             steps {
                 script {
@@ -70,7 +96,9 @@ pipeline {
                         
                         // Tag and push latest image
                         //bat "docker tag docker_username/complete-prodcution-e2e-pipeline:1.0.0-137 eagertolearn001/completeprodcutione2epipeline:1.0.0-137"
-                        bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+                        //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+                        bat docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137
+
                     }
                 }
             }
