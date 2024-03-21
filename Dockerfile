@@ -1,5 +1,5 @@
 FROM maven:3.9.6-eclipse-temurin-17 as build
-COPY --from=build target/petclinic.war   petclinic.war
+COPY --from=build target/petclinic.war   /app/
 EXPOSE  8080
 CMD ["java", "-jar", "petclinic.war"]
 
