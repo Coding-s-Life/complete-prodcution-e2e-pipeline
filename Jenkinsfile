@@ -50,7 +50,7 @@ pipeline {
         }
         stage("Test Install") {
             steps {
-                bat 'mvn install'
+                bat 'mvn install -Dmaven.install.directory=target'
             }
         }
 
