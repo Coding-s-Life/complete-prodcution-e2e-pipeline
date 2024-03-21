@@ -1,4 +1,3 @@
-CMD["dir"]
 FROM maven:3.9.6-eclipse-temurin-17 as build
 COPY --from=build target/petclinic.war   petclinic.war
 EXPOSE  8080
