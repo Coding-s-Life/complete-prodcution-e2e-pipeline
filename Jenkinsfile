@@ -5,7 +5,6 @@ pipeline {
     tools {
         jdk 'Java17'
         maven 'Maven3'
-        docker 'docker'
     }
     environment {
         APP_NAME = "complete-prodcution-e2e-pipeline"
@@ -76,7 +75,7 @@ pipeline {
         }
         stage("Build & Push Docker Image") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_token', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
                         // Docker login
                        // bat "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} ${DOCKER_REGISTRY}"
