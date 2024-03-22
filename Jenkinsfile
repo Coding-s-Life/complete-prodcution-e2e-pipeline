@@ -140,7 +140,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
                         script {
                             withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
-                                bat "docker run -d --name demoapp -p 8099:8099 ${IMAGE_NAME}:${IMAGE_TAG}"
+                                bat "docker run -d --name demoapp -p 8098:8098 ${IMAGE_NAME}:${IMAGE_TAG}"
                             }
                         }
                     }
