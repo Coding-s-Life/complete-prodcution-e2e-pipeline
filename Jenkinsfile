@@ -137,14 +137,14 @@ pipeline {
 
         stage("DEPLOY to Docker Container To Run Application"){
             steps {
-                    withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
-                        script {
-                            withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
+                withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
+                    script {
+                        withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
                                 bat "docker rm demoapp1"
                                 bat "docker run -d --name demoapp1 -p 8098:8098 ${IMAGE_NAME}:${IMAGE_TAG}"
-                            }
                         }
                     }
+                }
             }
         }
     }
