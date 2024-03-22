@@ -85,8 +85,9 @@ pipeline {
                         
                         // Build Docker image  APP_NAME
                         // bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -f Dockerfile ."
-                       // bat "docker build -t ${APP_NAME} -f Dockerfile ."
-                          bat "docker build -t completeproduction -f Dockerfile ."
+
+                        // Worked  bat "docker build -t completeproduction -f Dockerfile ."
+                        bat "docker build -t ${APP_NAME} -f Dockerfile ."
 
                           //bat "docker push eagertolearn001/completeprodcutione2epipeline:1.0.0-137"
 
