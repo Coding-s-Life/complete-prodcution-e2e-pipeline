@@ -77,6 +77,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
+                        withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
                         // Docker login
                        // bat "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} ${DOCKER_REGISTRY}"
                         //bat "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin ${DOCKER_REGISTRY}"
@@ -105,6 +106,7 @@ pipeline {
                         //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
                         //bat "docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137"
                         //bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        }
                     }
                 }
             }
@@ -113,7 +115,9 @@ pipeline {
             steps{
                 withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
-                        bat "docker tag ${APP_NAME} ${IMAGE_NAME}:${IMAGE_TAG}"
+                        withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
+                            bat "docker tag ${APP_NAME} ${IMAGE_NAME}:${IMAGE_TAG}"
+                        }
                     }
                 }
             }
@@ -122,7 +126,9 @@ pipeline {
             steps {
                    withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         script {
-                            bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                            withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
+                                bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                            }
                         }
                    }
             }
@@ -132,7 +138,9 @@ pipeline {
             steps {
                     withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
                         script {
-                            bat "docker run -d --name demoapp -p 8099:8099 ${IMAGE_NAME}:${IMAGE_TAG}"
+                            withDockerRegistry(credentialsId: 'docker_token', toolName: 'docker') {
+                                bat "docker run -d --name demoapp -p 8099:8099 ${IMAGE_NAME}:${IMAGE_TAG}"
+                            }
                         }
                     }
             }
