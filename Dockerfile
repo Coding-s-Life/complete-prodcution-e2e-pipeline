@@ -7,7 +7,7 @@ FROM eclipse-temurin:17.0.6_10-jdk
 EXPOSE 8098
 ENV APP_HOME    /usr/src/app
 #COPY --from=build /app/target/demoapp.jar /app/
-COPY    target/demoapp-1.0.0.jar    $APP_HOME/app.jar
+COPY    target/demoapp-1.0.0.jar    $APP_HOME/demoapp1.jar
 WORKDIR $APP_HOME
-ENTRYPOINT  exec java -jar app.jar
+ENTRYPOINT  exec java -jar demoapp1.jar
 #CMD ["java", "-jar","demoapp.jar"]
