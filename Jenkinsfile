@@ -73,7 +73,7 @@ pipeline {
                 }
             }
         }
-        stage("Build & Push Docker Image") {
+        stage("Build Docker Image") {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     script {
@@ -99,10 +99,37 @@ pipeline {
                         //bat "docker tag docker_username/complete-prodcution-e2e-pipeline:1.0.0-137 eagertolearn001/completeprodcutione2epipeline:1.0.0-137"
                         //bat "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
                         //bat "docker push eagertolearn001/complete-prodcution-e2e-pipeline:1.0.0-137"
-                        bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
-
+                        //bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                     }
                 }
+            }
+        }
+        stage("TAG Docker Image"){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    script {
+                        bat "docker tag ${APP_NAME} ${IMAGE_NAME}:${IMAGE_TAG}"
+                    }
+                }
+            }
+        }
+        stage("PUSH Docker Image") {
+            steps {
+                   withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        script {
+                            bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        }
+                   }
+            }
+        }
+
+        stage("DEPLOY to Docker Container To Run Application"){
+            steps {
+                    withCredentials([usernamePassword(credentialsId: 'docker_token', toolName: 'docker', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
+                        script {
+                            bat "docker run -d --name demoapp -p 8099:8099 ${IMAGE_NAME}:${IMAGE_TAG}"
+                        }
+                    }
             }
         }
     }
