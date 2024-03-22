@@ -82,8 +82,12 @@ pipeline {
                         //bat "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin ${DOCKER_REGISTRY}"
 
                         
-                        // Build Docker image
-                        bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -f Dockerfile ."
+                        // Build Docker image  APP_NAME
+                        // bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -f Dockerfile ."
+                        bat "docker build -t ${APP_NAME} -f Dockerfile ."
+
+                          //bat "docker push eagertolearn001/completeprodcutione2epipeline:1.0.0-137"
+
                         //bat "docker build -t ${IMAGE_NAME} ."
                         
                         // Tag Docker image
