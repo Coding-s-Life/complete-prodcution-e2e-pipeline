@@ -83,7 +83,7 @@ pipeline {
 
                         
                         // Build Docker image
-                        bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                        bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} -f Dockerfile ."
                         //bat "docker build -t ${IMAGE_NAME} ."
                         
                         // Tag Docker image
